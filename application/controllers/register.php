@@ -13,7 +13,8 @@ class Register extends CI_Controller {
 		$this->load->library('recaptcha');
 	}	
 	function index()
-	{			
+	{
+		//Validation RUles
 		$this->form_validation->set_rules('username', 'Username', 'required|xss_clean|min_length[6]|max_length[12]|is_unique[accounts.name]');			
 		$this->form_validation->set_rules('password', 'Password', 'required|xss_clean|min_length[6]|max_length[12]|matches[confirm_password]|sha1');			
 		$this->form_validation->set_rules('confirm_password', 'Confirm Password', 'required|xss_clean|max_length[45]|sha1');			
@@ -22,7 +23,7 @@ class Register extends CI_Controller {
 		$this->form_validation->set_error_delimiters('<br /><div class="alert alert-danger">', '</div>');
 		$data['recaptcha_html'] = $this->recaptcha->recaptcha_get_html();
         $data['page'] = 'main/register';
-		if ($this->form_validation->run() == FALSE) // validation hasn't been passed
+		if ($this->form_validation->run() == FALSE) //Validation has not passed
 		{
 			if(!$this->recaptcha->getIsValid())
 			{
@@ -35,30 +36,28 @@ class Register extends CI_Controller {
 			$this->load->view('structure/right');
 			$this->load->view('structure/footer');
 		}
-		else // passed validation proceed to post success logic
+		else // Validation Passed
 		{
-		 	// build array for the model
-			
+			// Create Array for Model
 			$form_data = array(
 					       	'name' => set_value('username'),
 					       	'password' => set_value('password'),
 					       	'email' => set_value('email')
 						);
 					
-			// run insert model to write data to db
-		
-			if ($this->insertreg->SaveForm($form_data) == TRUE) // the information has therefore been successfully saved in the db
+			//Run Model
+			if ($this->insertreg->SaveForm($form_data) == TRUE) // Model has completed
 			{
-				redirect('Register/success');   // or whatever logic needs to occur
+				redirect('Register/success');   // Redirect to Success Page/Eventually log user in
 			}
 			else
 			{
-			echo 'An error occurred saving your information. Please try again later';
-			// Or whatever error handling is necessary
+			echo 'An error occured. Please let the administrator know.';
+			// Model did not execute
 			}
 		}
 	}
-	function success()
+	function success() //Success Page
 	{
 		$this->load->view('structure/header');
 		$this->load->view('structure/left');
