@@ -40,7 +40,7 @@
 
 $route['default_controller'] = "base";
 $route['404_override'] = '';
-
+$route['download'] = 'Base/download';
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

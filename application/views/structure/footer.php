@@ -1,6 +1,6 @@
 <footer>
 	<div class="container">
-		<p class="text-center">Proudly powered by Cype v0.1.0</p>
+		<p class="text-center">Proudly powered by MapleIgnited v0.0.2</p>
 	</div>
 </footer>
 </body>
